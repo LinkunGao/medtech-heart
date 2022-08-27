@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
-      - run: npm run generate:gh-pages
+      - run: yarn install
+      - run: yarn generate:gh-pages
 
       - uses: actions/checkout@v3
         with:
