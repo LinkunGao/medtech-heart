@@ -23,8 +23,22 @@ jobs:
           ref: debug
           path: build/debug
           clean: false
-
       - run: rm -rf build/debug/.git
+
+      - uses: actions/checkout@v3
+        with:
+          ref: v1
+          path: build/v1
+          clean: false
+      - run: rm -rf build/v1/.git
+
+      - uses: actions/checkout@v3
+        with:
+          ref: v2
+          path: build/v2
+          clean: false
+      - run: rm -rf build/v2/.git
+
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{secrets.MY_GITHUB_TOKEN}}
