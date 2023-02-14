@@ -79,6 +79,7 @@ export default {
     updateEcg() {
       this.baseRenderer = this.$baseRenderer();
       if (this.baseRenderer) {
+        const sceneBase = this.baseRenderer.getCurrentScene();
         var updateIndicatorsAndTimer = () => {
           const scene = this.baseRenderer.getCurrentScene();
           const normaliseTime = scene.getCurrentTime();
@@ -86,9 +87,7 @@ export default {
           updateIndicator(normaliseTime);
         };
 
-        this.baseRenderer.addPreRenderCallbackFunction(
-          updateIndicatorsAndTimer
-        );
+        sceneBase.addPreRenderCallbackFunction(updateIndicatorsAndTimer);
       }
     },
   },
