@@ -135,7 +135,7 @@ export default {
   build: {
     extend(config) {
       config.module.rules.push({
-        test: /\.md$/i,
+        test: /\.(md)$/i,
         use: "raw-loader",
       });
     },

@@ -43,6 +43,7 @@ export default {
       scene: null,
       modelToSceneArray: [],
       container: null,
+      isModelHalfed: false,
       modelName: "",
       modelURLsArray: {
         NoInfarct_highres: [
@@ -97,7 +98,7 @@ export default {
     this.modelName = this.$model().name;
     this.container = this.$refs.baseDomObject;
     const baseContainer = this.$baseContainer();
-
+    this.isModelHalfed = this.$isHalfModel();
     setTimeout(() => {
       this.mdAndUp
         ? (baseContainer.style.height = "100vh")
@@ -115,6 +116,7 @@ export default {
         if (len === 3) {
           this.scene.controls.noZoom = true;
           this.scene.controls.noRotate = true;
+          this.scene.controls.staticMoving = false;
         }
       },
       false
@@ -122,6 +124,7 @@ export default {
     window.addEventListener(
       "touchend",
       () => {
+        this.scene.controls.staticMoving = true;
         setTimeout(() => {
           this.scene.controls.noZoom = false;
           this.scene.controls.noRotate = false;
@@ -158,26 +161,59 @@ export default {
     },
     loadModel(model_name, rateScaling) {
       let model_prefix = "_highres";
-      const metaURL = this.modelURLsArray[model_name + model_prefix][0];
-      const viewURL = this.modelURLsArray[model_name + model_prefix][1];
+      let metaURL = "";
+      let viewURL = "";
+      const urls = [];
+
+      if (model_name !== "NoInfarct") {
+        metaURL = this.modelURLsArray[model_name + model_prefix][0];
+        viewURL = this.modelURLsArray[model_name + model_prefix][1];
+      } else {
+        for (let i = 1; i <= 32; i++) {
+          urls.push(`dynamicImage/mri_4ch/${i}.dcm`);
+        }
+        metaURL = "dynamicImage/heart_2d.gltf";
+        viewURL = "dynamicImage/texture2d_view_array.json";
+      }
 
       this.scene = this.baseRenderer.getSceneByName(model_name);
       if (this.scene === undefined) {
         this.scene = this.baseRenderer.createScene(model_name);
-        // this.scene.controls.staticMoving = true;
+        this.scene.controls.staticMoving = true;
         // this.scene.controls.rotateSpeed = 2.0;
         this.baseRenderer.setCurrentScene(this.scene);
-        this.scene.loadGltf(metaURL, (content) => {
-          if (model_name === "ArrythmiaElectricity") {
-            this.scene.setModelPosition(content, { x: 5, y: 2 });
-          } else {
-            this.scene.setModelPosition(content, { y: 3 });
-          }
+        if (model_name !== "NoInfarct") {
+          this.scene.loadGltf(metaURL, (content) => {
+            if (model_name === "ArrythmiaElectricity") {
+              this.scene.setModelPosition(content, { x: 5, y: 2 });
+            } else {
+              this.scene.setModelPosition(content, { y: 3 });
+            }
 
-          if (this.oldCam && this.oldCam.near) {
-            this.shareCameraSettings(this.oldCam);
-          }
-        });
+            if (this.oldCam && this.oldCam.near) {
+              this.shareCameraSettings(this.oldCam);
+            }
+          });
+        } else {
+          //   "gltfloader-plugin-test": "^1.8.16",
+          this.scene.loadDicom(urls, {
+            setAnimation(currentValue, depth, depthStep) {
+              currentValue += depthStep;
+              if (currentValue > depth) {
+                currentValue = 0;
+              }
+              return currentValue;
+            },
+          });
+          this.scene.loadGltf(metaURL, (content) => {
+            content.scale.set(4, 4, 4);
+            content.rotation.set(2.8, 3.9, 4.2);
+            content.position.set(-7.6, 20.8, -1.7);
+
+            this.scene?.setPlayRate(3.5);
+          });
+        }
+
         this.$store.commit("setModelToSceneArray", this.scene);
 
         this.scene.loadViewUrl(viewURL);
@@ -207,15 +243,18 @@ export default {
         ];
         const viewpoint = this.scene.setViewPoint(oldCam, target);
         this.scene.updateCamera(viewpoint);
+        if (this.isModelHalfed != this.scene.isHalfed) this.showHalf();
+        this.scene.isHalfed = this.isModelHalfed;
       }
     },
 
     onResetAllModelsView() {
       this.heartRate = 2500;
+      this.isModelHalfed = false;
       $nuxt.$emit("beat-reset", 2500);
       this.$store.commit("setHeartBeat", 2500);
-
       this.$store.commit("setPreviousCamera", {});
+      this.$store.commit("setIsHalfModel", false);
 
       for (var k in this.modelToSceneArray) {
         if (this.modelToSceneArray.hasOwnProperty(k)) {
@@ -238,7 +277,8 @@ export default {
       this.scene.setPlayRate(convertRate);
     },
     addLabel(model_name) {
-      if (model_name === "NoInfarct" || model_name === "NormalElectricity") {
+      // if (model_name === "NoInfarct" || model_name === "NormalElectricity") {
+      if (model_name === "NormalElectricity") {
         this.Copper.addLabelToScene(
           this.scene,
           "right ventricle",
@@ -276,32 +316,34 @@ export default {
       }
     },
     onHalfHeartPressed() {
+      this.isModelHalfed = !this.isModelHalfed;
       this.showHalf();
     },
     showHalf(sceneObj) {
-      console.log("hala");
       let scene;
       if (sceneObj) {
         scene = sceneObj;
       } else {
         scene = this.baseRenderer.getSceneByName(this.modelName);
       }
-      scene.content.traverse((child) => {
-        if (
-          child.name === "Post_top" ||
-          child.name === "Post_inner" ||
-          child.name === "Post_NonInfarct" ||
-          child.name === "Post_top_1" ||
-          child.name === "Post_inner_1" ||
-          child.name === "Post_NonInfarct_1" ||
-          child.name === "Post"
-        ) {
-          scene.updateModelChildrenVisualisation(child);
-        }
-      });
+      this.$store.commit("setIsHalfModel", this.isModelHalfed);
+
       if (this.modelName === "NormalElectricity") {
         scene.content.traverse((child) => {
-          if (child.name === "Ant" || child.name === "Post") {
+          if (child.name === "Ant") {
+            scene.updateModelChildrenVisualisation(child);
+          }
+        });
+      } else {
+        scene.content.traverse((child) => {
+          if (
+            child.name === "Post_top" ||
+            child.name === "Post_inner" ||
+            child.name === "Post_NonInfarct" ||
+            child.name === "Post_top_1" ||
+            child.name === "Post_inner_1" ||
+            child.name === "Post_NonInfarct_1"
+          ) {
             scene.updateModelChildrenVisualisation(child);
           }
         });
