@@ -141,7 +141,7 @@ export default {
       this.modelToSceneArray = this.$modelToSceneArray();
 
       if (
-        this.modelName === "NoInfarct" ||
+        // this.modelName === "NoInfarct" ||
         this.modelName === "SmallInfarct" ||
         this.modelName === "LargeInfarct" ||
         this.modelName === "CompensatedFailure" ||
@@ -206,9 +206,9 @@ export default {
             },
           });
           this.scene.loadGltf(metaURL, (content) => {
-            content.scale.set(4, 4, 4);
-            content.rotation.set(2.8, 3.9, 4.2);
-            content.position.set(-7.6, 20.8, -1.7);
+            content.scale.set(3.5, 3.5, 3.5);
+            content.rotation.set(4.4, 2.8, 4.2);
+            content.position.set(4.3, 2.8, 2.8);
 
             this.scene?.setPlayRate(3.5);
           });
