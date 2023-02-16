@@ -1633,20 +1633,35 @@
     {
       "pbrMetallicRoughness": {
         "baseColorFactor": [
-          1,
-          0.9411764705882353,
-          0,
+          0.8,
+          0.8,
+          0.8,
           1
         ],
         "metallicFactor": 0,
         "roughnessFactor": 1
       },
       "doubleSided": true
+    },
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8392156862745098,
+          0.8274509803921568,
+          0.8313725490196079,
+          0.5
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      },
+      "alphaMode": "BLEND",
+      "doubleSided": true
     }
   ],
   "meshes": [
     {
       "weights": [
+        0.5790000000000298,
         0,
         0,
         0,
@@ -1654,7 +1669,6 @@
         0,
         0,
         0,
-        0.5299000000022396,
         0,
         0,
         0,
@@ -1714,7 +1728,7 @@
       },
       "primitives": [
         {
-          "mode": 4,
+          "mode": 1,
           "attributes": {
             "POSITION": 0,
             "NORMAL": 1
@@ -1818,6 +1832,7 @@
     },
     {
       "weights": [
+        0.5790000000000298,
         0,
         0,
         0,
@@ -1825,7 +1840,6 @@
         0,
         0,
         0,
-        0.5299000000022396,
         0,
         0,
         0,
@@ -1983,7 +1997,7 @@
             }
           ],
           "indices": 65,
-          "material": 0
+          "material": 1
         }
       ]
     }

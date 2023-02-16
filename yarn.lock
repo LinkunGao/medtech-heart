@@ -2592,10 +2592,10 @@ copper3d_plugin_nrrd@^1.2.2:
     fflate "^0.7.4"
     three "^0.148.0"
 
-copper3d_visualisation@^1.13.9:
-  version "1.13.9"
-  resolved "https://registry.yarnpkg.com/copper3d_visualisation/-/copper3d_visualisation-1.13.9.tgz#1a9666c26e8645c545ffb669d834402eb5bb59e1"
-  integrity sha512-TFB2Rir38+9NHX+2P1A9zntqE/xh5Ssq5ZuDnwSDLdIWY7+mmd1QsmyV6ckJi3O2OPJ5FKXArzjFp4ATs/ilEA==
+copper3d_visualisation@^1.13.13:
+  version "1.13.13"
+  resolved "https://registry.yarnpkg.com/copper3d_visualisation/-/copper3d_visualisation-1.13.13.tgz#7852222d150393cc23b12749b351ca16c80cd649"
+  integrity sha512-zGd9TP+eBTjmpmPZYB0hIsEXeEteHszPgOjIET1BWVJwQvPFJ6DuQ6Oa48PdQe7oyTIvx1dO/GVzdeZUNdkryw==
   dependencies:
     "@types/dat.gui" "^0.7.7"
     "@types/three" "^0.140.0"
