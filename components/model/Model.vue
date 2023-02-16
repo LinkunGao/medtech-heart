@@ -172,7 +172,7 @@ export default {
         for (let i = 1; i <= 32; i++) {
           urls.push(`dynamicImage/mri_4ch/${i}.dcm`);
         }
-        metaURL = "dynamicImage/heart_2d.gltf";
+        metaURL = "dynamicImage/heart_model_grey.gltf";
         viewURL = "dynamicImage/texture2d_view_array.json";
       }
 
@@ -197,6 +197,11 @@ export default {
         } else {
           //   "gltfloader-plugin-test": "^1.8.16",
           this.scene.loadDicom(urls, {
+            getCopperVolume(copperVolume, updateTexture) {
+              copperVolume.windowWidth = 424;
+              copperVolume.windowCenter = 236;
+              updateTexture(copperVolume);
+            },
             setAnimation(currentValue, depth, depthStep) {
               currentValue += depthStep;
               if (currentValue > depth) {
@@ -206,9 +211,9 @@ export default {
             },
           });
           this.scene.loadGltf(metaURL, (content) => {
+            content.rotation.set(-12.9, 3.6, 3);
             content.scale.set(3.5, 3.5, 3.5);
-            content.rotation.set(4.4, 2.8, 4.2);
-            content.position.set(4.3, 2.8, 2.8);
+            content.position.set(4.3, 1.3, -0.2);
 
             this.scene?.setPlayRate(3.5);
           });
