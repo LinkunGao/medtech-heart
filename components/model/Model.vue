@@ -169,7 +169,7 @@ export default {
         metaURL = this.modelURLsArray[model_name + model_prefix][0];
         viewURL = this.modelURLsArray[model_name + model_prefix][1];
       } else {
-        for (let i = 1; i <= 32; i++) {
+        for (let i = 1; i <= 1; i++) {
           urls.push(`dynamicImage/mri_4ch/${i}.dcm`);
         }
         metaURL = "dynamicImage/heart_model_grey.gltf";
