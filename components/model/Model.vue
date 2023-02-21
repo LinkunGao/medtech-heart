@@ -172,7 +172,8 @@ export default {
         for (let i = 1; i <= 1; i++) {
           urls.push(`dynamicImage/mri_4ch/${i}.dcm`);
         }
-        metaURL = "dynamicImage/heart_model_grey.gltf";
+        // metaURL = "dynamicImage/heart_model_grey.gltf";
+        metaURL = "dynamicImage/heart-sigal.gltf";
         viewURL = "dynamicImage/texture2d_view_array.json";
       }
 
@@ -212,8 +213,8 @@ export default {
           });
           this.scene.loadGltf(metaURL, (content) => {
             content.rotation.set(-12.9, 3.6, 3);
-            content.scale.set(3.5, 3.5, 3.5);
-            content.position.set(4.3, 1.3, -0.2);
+            content.scale.set(3.2, 3.2, 3.2);
+            content.position.set(7.3, 4.3, -0.2);
 
             this.scene?.setPlayRate(3.5);
           });
