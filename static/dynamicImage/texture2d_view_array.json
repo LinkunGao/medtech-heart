@@ -3,5 +3,5 @@
   "targetPosition": [0, 0, 0],
   "nearPlane": 0.01,
   "upVector": [-1, -1, 0],
-  "eyePosition": [0, 0, -200]
+  "eyePosition": [0, 0, -125]
 }
