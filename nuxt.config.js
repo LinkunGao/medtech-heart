@@ -1,4 +1,6 @@
 import colors from "vuetify/es5/util/colors";
+const serveStatic = require("serve-static");
+const path = require("path");
 const routerBase =
   process.env.DEPLOY_ENV === "GH_PAGES"
     ? {
@@ -73,6 +75,20 @@ export default {
     ],
   },
 
+  serverMiddleware: [
+    // add middlewares
+    {
+      handler: serveStatic(path.resolve(__dirname, "static"), {
+        setHeaders(res, path) {
+          if (/\.mp4$/.test(path)) {
+            res.setHeader("Content-Type", "video/mp4");
+          }
+        },
+      }),
+      prefix: "@/static",
+    },
+  ],
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["@/assets/sass/global.scss", "@/assets/sass/base.scss"],
 
@@ -135,7 +151,7 @@ export default {
   build: {
     extend(config) {
       config.module.rules.push({
-        test: /\.(md)$/i,
+        test: /\.md$/i,
         use: "raw-loader",
       });
     },
