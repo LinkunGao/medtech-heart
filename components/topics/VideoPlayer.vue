@@ -5,14 +5,18 @@
       class="container-default video-player flexbox --vertical"
       :class="$vuetify.breakpoint.mdAndUp ? 'full-height' : ''"
     >
-      <iframe
+      <!-- <iframe
         ref="iframe"
         allowfullscreen
         frameborder="0"
         :class="getVideoStyle()"
         :src="selectedVideo.link"
       >
-      </iframe>
+      </iframe> -->
+      <div class="video-player-container">
+        <video :src="selectedVideo.link" autoplay controls></video>
+      </div>
+
       <div id="outer-credits">
         <div class="credits flexbox">
           <img src="@/assets/images/Annie-Jones.png" class="img-icon" />
@@ -90,11 +94,14 @@ export default {
   },
   mounted() {
     const iframe = this.$refs.iframe;
-    iframe.addEventListener("load", () => {
-      const videoElement = iframe.contentWindow.document.querySelector("video");
-      videoElement.style.width = "65vw";
-      videoElement.style.height = "auto";
-    });
+    if (!!iframe) {
+      iframe.addEventListener("load", () => {
+        const videoElement =
+          iframe.contentWindow.document.querySelector("video");
+        videoElement.style.width = "65vw";
+        videoElement.style.height = "auto";
+      });
+    }
   },
 
   watch: {

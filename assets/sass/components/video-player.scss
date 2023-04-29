@@ -15,6 +15,18 @@
   // background-color: aqua;
   bottom: 0px;
 }
+.video-player-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  video {
+    width: 65vw;
+    height: auto;
+    object-fit: cover;
+  }
+}
 
 .display-video {
   display: block;
