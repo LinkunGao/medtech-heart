@@ -33,6 +33,18 @@ p {
 .md-video {
   cursor: pointer;
 }
+.md-mt {
+  float: right;
+}
+
+.text-container {
+  overflow: hidden;
+  p {
+    text-align: justify;
+    padding: 1rem 0rem;
+  }
+}
+
 .topic-img {
   display: flex;
   flex-direction: row;

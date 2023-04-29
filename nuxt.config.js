@@ -30,6 +30,10 @@ export default {
         type: "image/x-icon",
         href: "/medtech-heart/favicon2.ico",
       },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bad+Script&family=Raleway:wght@100;300&display=swap",
+      },
     ],
     meta: [
       { charset: "utf-8" },
@@ -109,6 +113,7 @@ export default {
       "~/components/model",
       "~/components/navigation",
       "~/components/topics",
+      "~/components/loading",
     ],
   },
 
