@@ -141,7 +141,7 @@ export default {
       this.modelToSceneArray = this.$modelToSceneArray();
 
       if (
-        // this.modelName === "NoInfarct" ||
+        this.modelName === "NoInfarct" ||
         this.modelName === "SmallInfarct" ||
         this.modelName === "LargeInfarct" ||
         this.modelName === "CompensatedFailure" ||
@@ -161,21 +161,8 @@ export default {
     },
     loadModel(model_name, rateScaling) {
       let model_prefix = "_highres";
-      let metaURL = "";
-      let viewURL = "";
-      const urls = [];
-
-      if (model_name !== "NoInfarct") {
-        metaURL = this.modelURLsArray[model_name + model_prefix][0];
-        viewURL = this.modelURLsArray[model_name + model_prefix][1];
-      } else {
-        for (let i = 1; i <= 1; i++) {
-          urls.push(`dynamicImage/one_frame/${i}.dcm`);
-        }
-        // metaURL = "dynamicImage/heart_model_grey.gltf";
-        metaURL = "dynamicImage/one_frame/heart_p.gltf";
-        viewURL = "dynamicImage/texture2d_view_array.json";
-      }
+      const metaURL = this.modelURLsArray[model_name + model_prefix][0];
+      const viewURL = this.modelURLsArray[model_name + model_prefix][1];
 
       this.scene = this.baseRenderer.getSceneByName(model_name);
       if (this.scene === undefined) {
@@ -183,43 +170,17 @@ export default {
         this.scene.controls.staticMoving = true;
         // this.scene.controls.rotateSpeed = 2.0;
         this.baseRenderer.setCurrentScene(this.scene);
-        if (model_name !== "NoInfarct") {
-          this.scene.loadGltf(metaURL, (content) => {
-            if (model_name === "ArrythmiaElectricity") {
-              this.scene.setModelPosition(content, { x: 5, y: 2 });
-            } else {
-              this.scene.setModelPosition(content, { y: 3 });
-            }
+        this.scene.loadGltf(metaURL, (content) => {
+          if (model_name === "ArrythmiaElectricity") {
+            this.scene.setModelPosition(content, { x: 5, y: 2 });
+          } else {
+            this.scene.setModelPosition(content, { y: 3 });
+          }
 
-            if (this.oldCam && this.oldCam.near) {
-              this.shareCameraSettings(this.oldCam);
-            }
-          });
-        } else {
-          //   "gltfloader-plugin-test": "^1.8.16",
-          this.scene.loadDicom(urls, {
-            getCopperVolume(copperVolume, updateTexture) {
-              copperVolume.windowWidth = 424;
-              copperVolume.windowCenter = 236;
-              updateTexture(copperVolume);
-            },
-            setAnimation(currentValue, depth, depthStep) {
-              currentValue += depthStep;
-              if (currentValue > depth) {
-                currentValue = 0;
-              }
-              return currentValue;
-            },
-          });
-          this.scene.loadGltf(metaURL, (content) => {
-            content.rotation.set(-12.9, 3.6, 3.1);
-            content.scale.set(3.4, 3.4, 3.4);
-            content.position.set(4.3, 1.3, 0);
-
-            this.scene?.setPlayRate(3.5);
-          });
-        }
-
+          if (this.oldCam && this.oldCam.near) {
+            this.shareCameraSettings(this.oldCam);
+          }
+        });
         this.$store.commit("setModelToSceneArray", this.scene);
 
         this.scene.loadViewUrl(viewURL);
@@ -283,8 +244,7 @@ export default {
       this.scene.setPlayRate(convertRate);
     },
     addLabel(model_name) {
-      // if (model_name === "NoInfarct" || model_name === "NormalElectricity") {
-      if (model_name === "NormalElectricity") {
+      if (model_name === "NoInfarct" || model_name === "NormalElectricity") {
         this.Copper.addLabelToScene(
           this.scene,
           "right ventricle",

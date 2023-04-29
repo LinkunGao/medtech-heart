@@ -1,12 +1,12 @@
 {
   "model": {
     "title": "Home",
-    "heading": "Taku Manawa",
+    "heading": "Te Manawa",
     "icon": "mdi-home",
     "subTopics": {
       "heart": {
         "title": "Heart",
-        "heading": "My Heart",
+        "heading": "The Heart",
         "icon": "mdi-home-heart",
         "dataFile": "heart-main",
         "category": "success",
