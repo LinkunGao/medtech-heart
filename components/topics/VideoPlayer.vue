@@ -5,14 +5,6 @@
       class="container-default video-player flexbox --vertical"
       :class="$vuetify.breakpoint.mdAndUp ? 'full-height' : ''"
     >
-      <!-- <iframe
-        ref="iframe"
-        allowfullscreen
-        frameborder="0"
-        :class="getVideoStyle()"
-        :src="selectedVideo.link"
-      >
-      </iframe> -->
       <div class="video-player-container">
         <video :src="selectedVideo.link" autoplay controls></video>
       </div>
@@ -91,17 +83,6 @@ export default {
         ? "display-video"
         : "display-video --" + this.$vuetify.breakpoint.name;
     },
-  },
-  mounted() {
-    const iframe = this.$refs.iframe;
-    if (!!iframe) {
-      iframe.addEventListener("load", () => {
-        const videoElement =
-          iframe.contentWindow.document.querySelector("video");
-        videoElement.style.width = "65vw";
-        videoElement.style.height = "auto";
-      });
-    }
   },
 
   watch: {
