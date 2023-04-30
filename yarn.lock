@@ -1312,11 +1312,6 @@
   resolved "https://registry.npmjs.org/@polka/url/-/url-1.0.0-next.21.tgz"
   integrity sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==
 
-"@types/dat.gui@^0.7.7":
-  version "0.7.7"
-  resolved "https://registry.npmjs.org/@types/dat.gui/-/dat.gui-0.7.7.tgz"
-  integrity sha512-CxLCme0He5Jk3uQwfO/fGZMyNhb/ypANzqX0yU9lviBQMlen5SOvQTBQ/Cd9x5mFlUAK5Tk8RgvTyLj1nYkz+w==
-
 "@types/dat.gui@^0.7.9":
   version "0.7.9"
   resolved "https://registry.yarnpkg.com/@types/dat.gui/-/dat.gui-0.7.9.tgz#9e16985a0a6b4ef652c53212ee813e5968aff9a8"
@@ -3821,19 +3816,6 @@ glsl-noise@0.0.0:
   version "0.0.0"
   resolved "https://registry.npmjs.org/glsl-noise/-/glsl-noise-0.0.0.tgz"
   integrity sha512-b/ZCF6amfAUb7dJM/MxRs7AetQEahYzJ8PtgfrmEdtw6uyGOr+ZSGtgjFm6mfsBkxJ4d2W7kg+Nlqzqvn3Bc0w==
-
-gltfloader-plugin-test@^1.8.16:
-  version "1.8.16"
-  resolved "https://registry.npmjs.org/gltfloader-plugin-test/-/gltfloader-plugin-test-1.8.16.tgz"
-  integrity sha512-VzpDzua0Y4lxHStTZY1jjz91uI2sxPk8AyX9z1R01vnkvQ7+M+l9CPjZP7hajV4++t+2ihnCSt+lNj6SmFCEtg==
-  dependencies:
-    "@types/dat.gui" "^0.7.7"
-    "@types/three" "^0.140.0"
-    copper3d_plugin_heart_k "^1.0.14"
-    dat.gui "^0.7.9"
-    glsl-blend-soft-light "^1.0.5"
-    glsl-film-grain "^1.0.4"
-    three "^0.140.2"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
   version "4.2.9"
@@ -7503,11 +7485,6 @@ three@^0.137.5:
   version "0.137.5"
   resolved "https://registry.npmjs.org/three/-/three-0.137.5.tgz"
   integrity sha512-rTyr+HDFxjnN8+N/guZjDgfVxgHptZQpf6xfL/Mo7a5JYIFwK6tAq3bzxYYB4Ae0RosDZlDuP+X5aXDXz+XnHQ==
-
-three@^0.140.2:
-  version "0.140.2"
-  resolved "https://registry.npmjs.org/three/-/three-0.140.2.tgz"
-  integrity sha512-DdT/AHm/TbZXEhQKQpGt5/iSgBrmXpjU26FNtj1KhllVPTKj1eG4X/ShyD5W2fngE+I1s1wa4ttC4C3oCJt7Ag==
 
 three@^0.148.0:
   version "0.148.0"
