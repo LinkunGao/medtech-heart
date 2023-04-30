@@ -12,6 +12,7 @@
     "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate"
   },
   "dependencies": {
+    "copper3d_visualisation": "^1.14.8",
     "core-js": "^3.19.3",
     "gltfloader-plugin-test": "^1.8.16",
     "marked": "^4.0.11",
