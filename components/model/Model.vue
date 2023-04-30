@@ -102,10 +102,17 @@ export default {
     setTimeout(() => {
       this.mdAndUp
         ? (baseContainer.style.height = "100vh")
-        : (baseContainer.style.height = "400px");
+        : (baseContainer.style.height = "100vw");
+      this.container.appendChild(baseContainer);
+      this.start();
     }, 100);
-    this.container.appendChild(baseContainer);
-    this.start();
+
+    window.addEventListener("resize", () => {
+      this.mdAndUp
+        ? (baseContainer.style.height = "100vh")
+        : (baseContainer.style.height = "100vw");
+      this.scene.onWindowResize();
+    });
 
     window.addEventListener(
       "touchstart",
@@ -192,6 +199,7 @@ export default {
         this.meshReady(this.oldCam);
         this.baseRenderer.setCurrentScene(this.scene);
       }
+      this.scene.onWindowResize();
     },
     meshReady(oldCam) {
       if (this.oldCam && oldCam.near) {
@@ -393,7 +401,7 @@ export default {
 }
 .baseDom-sm {
   width: 100vw;
-  height: 400px;
+  height: 100vw;
   margin: 0;
   padding: 0;
 }
