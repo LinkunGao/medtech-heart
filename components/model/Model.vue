@@ -198,6 +198,9 @@ export default {
       } else {
         this.meshReady(this.oldCam);
         this.baseRenderer.setCurrentScene(this.scene);
+        if (model_name === "ArrythmiaElectricity") {
+          if (this.isModelHalfed != this.scene.isHalfed) this.showHalf();
+        }
       }
       this.scene.onWindowResize();
     },
@@ -249,7 +252,7 @@ export default {
     },
     updateSlider(heartRate) {
       const convertRate = this.convertHeartRate(heartRate);
-      this.scene.setPlayRate(convertRate);
+      !!this.scene && this.scene.setPlayRate(convertRate);
     },
     addLabel(model_name) {
       if (model_name === "NoInfarct" || model_name === "NormalElectricity") {
@@ -305,6 +308,12 @@ export default {
       if (this.modelName === "NormalElectricity") {
         scene.content.traverse((child) => {
           if (child.name === "Ant") {
+            scene.updateModelChildrenVisualisation(child);
+          }
+        });
+      } else if (this.modelName === "ArrythmiaElectricity") {
+        scene.content.traverse((child) => {
+          if (child.name === "Post") {
             scene.updateModelChildrenVisualisation(child);
           }
         });
