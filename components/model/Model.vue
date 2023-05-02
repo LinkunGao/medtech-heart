@@ -175,7 +175,8 @@ export default {
       if (this.scene === undefined) {
         this.scene = this.baseRenderer.createScene(model_name);
         this.scene.controls.staticMoving = true;
-        // this.scene.controls.rotateSpeed = 2.0;
+        this.scene.controls.rotateSpeed = 2.0;
+        this.scene.controls.panSpeed = 3.0;
         this.baseRenderer.setCurrentScene(this.scene);
         this.scene.loadGltf(metaURL, (content) => {
           if (model_name === "ArrythmiaElectricity") {
@@ -198,6 +199,9 @@ export default {
       } else {
         this.meshReady(this.oldCam);
         this.baseRenderer.setCurrentScene(this.scene);
+        if (model_name === "ArrythmiaElectricity") {
+          if (this.isModelHalfed != this.scene.isHalfed) this.showHalf();
+        }
       }
       this.scene.onWindowResize();
     },
@@ -249,13 +253,13 @@ export default {
     },
     updateSlider(heartRate) {
       const convertRate = this.convertHeartRate(heartRate);
-      this.scene.setPlayRate(convertRate);
+      !!this.scene && this.scene.setPlayRate(convertRate);
     },
     addLabel(model_name) {
       if (model_name === "NoInfarct" || model_name === "NormalElectricity") {
         this.Copper.addLabelToScene(
           this.scene,
-          "right ventricle",
+          "Right Ventricle",
           -45.323991175632,
           44.1417335930078,
           10.421283,
@@ -263,7 +267,7 @@ export default {
         );
         this.Copper.addLabelToScene(
           this.scene,
-          "left ventricle",
+          "Left Ventricle",
           -55.056679,
           4.82123313284426,
           5.421283,
@@ -272,7 +276,7 @@ export default {
       } else if (model_name === "SmallInfarct") {
         this.Copper.addLabelToScene(
           this.scene,
-          "damaged tissue",
+          "Damaged Tissue",
           30,
           -40,
           0,
@@ -281,7 +285,7 @@ export default {
       } else if (model_name === "LargeInfarct") {
         this.Copper.addLabelToScene(
           this.scene,
-          "damaged tissue",
+          "Damaged Tissue",
           15,
           -45,
           0,
@@ -305,6 +309,12 @@ export default {
       if (this.modelName === "NormalElectricity") {
         scene.content.traverse((child) => {
           if (child.name === "Ant") {
+            scene.updateModelChildrenVisualisation(child);
+          }
+        });
+      } else if (this.modelName === "ArrythmiaElectricity") {
+        scene.content.traverse((child) => {
+          if (child.name === "Post") {
             scene.updateModelChildrenVisualisation(child);
           }
         });
