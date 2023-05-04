@@ -108,10 +108,12 @@ export default {
     }, 100);
 
     window.addEventListener("resize", () => {
-      this.mdAndUp
-        ? (baseContainer.style.height = "100vh")
-        : (baseContainer.style.height = "100vw");
-      this.scene.onWindowResize();
+      setTimeout(() => {
+        this.mdAndUp
+          ? (baseContainer.style.height = "100vh")
+          : (baseContainer.style.height = "100vw");
+        this.scene.onWindowResize();
+      }, 500);
     });
 
     window.addEventListener(
@@ -124,6 +126,7 @@ export default {
           this.scene.controls.noZoom = true;
           this.scene.controls.noRotate = true;
           this.scene.controls.staticMoving = false;
+          this.scene.controls.panSpeed = 1.0;
         }
       },
       false
@@ -132,6 +135,7 @@ export default {
       "touchend",
       () => {
         this.scene.controls.staticMoving = true;
+        this.scene.controls.panSpeed = 3.0;
         setTimeout(() => {
           this.scene.controls.noZoom = false;
           this.scene.controls.noRotate = false;
@@ -177,14 +181,18 @@ export default {
         this.scene.controls.staticMoving = true;
         this.scene.controls.rotateSpeed = 2.0;
         this.scene.controls.panSpeed = 3.0;
+        this.scene.controls.touches = {
+          ONE: this.THREE.TOUCH.ROTATE,
+          TWO: this.THREE.TOUCH.DOLLY,
+          THREE: this.THREE.TOUCH.PAN,
+        };
         this.baseRenderer.setCurrentScene(this.scene);
         this.scene.loadGltf(metaURL, (content) => {
           if (model_name === "ArrythmiaElectricity") {
             this.scene.setModelPosition(content, { x: 5, y: 2 });
           } else {
-            this.scene.setModelPosition(content, { y: 3 });
+            this.scene.setModelPosition(content, { x: -2, y: 3, z: -3 });
           }
-
           if (this.oldCam && this.oldCam.near) {
             this.shareCameraSettings(this.oldCam);
           }
