@@ -1,6 +1,7 @@
 import colors from "vuetify/es5/util/colors";
 const serveStatic = require("serve-static");
 const path = require("path");
+
 const routerBase =
   process.env.DEPLOY_ENV === "GH_PAGES"
     ? {
@@ -60,8 +61,15 @@ export default {
         "data-dojo-config": "async: 1, dojoBlankHtmlUrl: '/blank.html'",
         src: "//ajax.googleapis.com/ajax/libs/dojo/1.11.2/dojo/dojo.js",
       },
+      // for local
+      // {
+      //   "data-dojo-config": "async: 1, dojoBlankHtmlUrl: '/blank.html'",
+      //   type: "text/javascript",
+      //   src: "js/dojo.js",
+      // },
       {
-        src: "https://cdn.tailwindcss.com",
+        type: "text/javascript",
+        src: "js/tailwindcss.js",
       },
       {
         hid: "chartMaker",
@@ -168,6 +176,7 @@ export default {
         implementation: require("sass"),
       },
     },
+
   },
 
   target: "static",
